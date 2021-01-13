@@ -3,7 +3,7 @@ using Akka.Actor;
 using Microsoft.VisualBasic;
 using WinTail.Messages;
 
-namespace WinTail
+namespace WinTail.Actors
 {
     /// <summary>
     /// Actor responsible for serializing message writes to the console.
