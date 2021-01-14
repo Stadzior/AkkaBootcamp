@@ -13,11 +13,8 @@ namespace WinTail.Actors
         public const string StartCommand = "start";
         public const string ExitCommand = "exit";
 
-        private readonly IActorRef _fileValidatorActor;
-
-        public ConsoleReaderActor(IActorRef fileValidatorActor)
+        public ConsoleReaderActor()
         {
-            _fileValidatorActor = fileValidatorActor;
         }
 
         protected override void OnReceive(object message)
@@ -46,8 +43,7 @@ namespace WinTail.Actors
             }
 
             // otherwise, just hand message off to validation actor
-            // (by telling its actor ref)
-            _fileValidatorActor.Tell(read);
+            Context.ActorSelection("akka://MyActorSystem/user/fileValidatorActor").Tell(read);
         }
 
         #endregion

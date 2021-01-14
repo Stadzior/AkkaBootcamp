@@ -1,6 +1,5 @@
 ﻿using System;
 using Akka.Actor;
-using Microsoft.VisualBasic;
 using WinTail.Messages;
 
 namespace WinTail.Actors
