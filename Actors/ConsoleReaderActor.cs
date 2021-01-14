@@ -13,28 +13,22 @@ namespace WinTail.Actors
         public const string StartCommand = "start";
         public const string ExitCommand = "exit";
 
-        private readonly IActorRef _validationActor;
+        private readonly IActorRef _fileValidatorActor;
 
-        public ConsoleReaderActor(IActorRef validationActor)
+        public ConsoleReaderActor(IActorRef fileValidatorActor)
         {
-            _validationActor = validationActor;
+            _fileValidatorActor = fileValidatorActor;
         }
 
         protected override void OnReceive(object message)
         {
             if (message.Equals(StartCommand))
-                DoPrintInstructions();
-            
+                Console.WriteLine("Please provide the URI of a log file on disk.\n");
+
             ValidateInput();
         }
 
         #region Internal methods
-        private void DoPrintInstructions()
-        {
-            Console.WriteLine("Write whatever you want into the console!");
-            Console.WriteLine("Some entries will pass validation, and some won't...\n\n");
-            Console.WriteLine("Type 'exit' to quit this application at any time.\n");
-        }
 
         /// <summary>
         /// Reads input from console, validates it, then signals appropriate response
@@ -53,8 +47,9 @@ namespace WinTail.Actors
 
             // otherwise, just hand message off to validation actor
             // (by telling its actor ref)
-            _validationActor.Tell(read);
+            _fileValidatorActor.Tell(read);
         }
+
         #endregion
     }
 }
